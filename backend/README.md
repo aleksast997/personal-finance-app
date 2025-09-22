@@ -1,98 +1,286 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Personal Finance API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive RESTful API for personal finance management built with NestJS, TypeScript, Prisma ORM, and PostgreSQL. This API provides secure user authentication and complete financial data management capabilities.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Features
 
-## Description
+- **User Authentication**: Secure JWT-based authentication with registration and login
+- **Account Management**: Multiple account types (checking, savings, credit, cash) with multi-currency support
+- **Transaction Tracking**: Comprehensive transaction management with categorization
+- **Category Management**: Custom income and expense categories with visual customization
+- **Multi-Currency Support**: Built-in support for RSD, EUR, and USD
+- **Repository Pattern**: Clean architecture with repository pattern implementation
+- **API Documentation**: Interactive Swagger/OpenAPI documentation
+- **Database Migrations**: Prisma-based database schema management
+- **Type Safety**: Full TypeScript implementation with strict typing
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🏗️ Architecture
 
-## Project setup
+- **Framework**: NestJS with TypeScript
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: JWT with Passport strategies
+- **Validation**: Class-validator for DTO validation
+- **Documentation**: Swagger/OpenAPI integration
+- **Testing**: Jest for unit and e2e testing
+- **Code Quality**: ESLint + Prettier configuration
 
+## 📋 Prerequisites
+
+- Node.js (v18 or higher)
+- PostgreSQL (v15 or higher)
+- npm or yarn package manager
+
+## 🛠️ Installation
+
+### 1. Clone the repository
 ```bash
-$ npm install
+git clone <repository-url>
+cd personal-finance-app/backend
 ```
 
-## Compile and run the project
-
+### 2. Install dependencies
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### 3. Environment Setup
+Create a `.env` file in the root directory:
+```env
+# Database
+DATABASE_URL="postgresql://postgres:password123@localhost:5432/personal_finance_db"
 
-```bash
-# unit tests
-$ npm run test
+# JWT Configuration
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_EXPIRES_IN="7d"
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Application
+PORT=3000
+NODE_ENV="development"
 ```
 
-## Deployment
+### 4. Database Setup
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+#### Option A: Using Docker Compose (Recommended)
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Start PostgreSQL and pgAdmin
+docker-compose up -d
+
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations
+npx prisma migrate dev
+
+# Optional: Seed the database
+npm run db:seed
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#### Option B: Local PostgreSQL
+```bash
+# Create database manually
+createdb personal_finance_db
 
-## Resources
+# Generate Prisma client
+npx prisma generate
 
-Check out a few resources that may come in handy when working with NestJS:
+# Run database migrations
+npx prisma migrate dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 5. Start the application
+```bash
+# Development mode with hot reload
+npm run start:dev
 
-## Support
+# Production mode
+npm run build
+npm run start:prod
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The API will be available at `http://localhost:3000`
 
-## Stay in touch
+## 📚 API Documentation
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Interactive API documentation is available via Swagger UI:
+- **Development**: `http://localhost:3000/api`
+- **Production**: `https://your-domain.com/api`
 
-## License
+## 🔗 API Endpoints
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Authentication
+- `POST /auth/register` - Register a new user
+- `POST /auth/login` - User login
+
+### Accounts
+- `GET /accounts` - Get user accounts
+- `POST /accounts` - Create new account
+- `PUT /accounts/:id` - Update account
+- `DELETE /accounts/:id` - Delete account
+
+### Transactions
+- `GET /transactions` - Get user transactions
+- `POST /transactions` - Create new transaction
+- `PUT /transactions/:id` - Update transaction
+- `DELETE /transactions/:id` - Delete transaction
+
+### Categories
+- `GET /categories` - Get user categories
+- `POST /categories` - Create new category
+- `PUT /categories/:id` - Update category
+- `DELETE /categories/:id` - Delete category
+
+## 🗄️ Database Schema
+
+### Users
+- Personal information and authentication
+- Account ownership and transaction history
+
+### Accounts
+- Multiple account types (checking, savings, credit, cash)
+- Multi-currency support (RSD, EUR, USD)
+- Bank information and account numbers
+
+### Transactions
+- Income and expense tracking
+- Category classification
+- Account-to-account transfers
+
+### Categories
+- Custom income/expense categories
+- Visual customization (icons, colors)
+- User-specific categorization
+
+## 🧪 Testing
+
+```bash
+# Unit tests
+npm run test
+
+# Unit tests with watch mode
+npm run test:watch
+
+# End-to-end tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+## 🔍 Code Quality
+
+```bash
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Type checking
+npx tsc --noEmit
+```
+
+## 🐳 Docker Support
+
+The project includes Docker Compose configuration for easy development setup:
+
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Included Services:
+- **PostgreSQL**: Database server on port 5432
+- **pgAdmin**: Database GUI on port 8080 (admin@admin.com / admin123)
+
+## 🔧 Database Management
+
+```bash
+# Generate Prisma client after schema changes
+npx prisma generate
+
+# Create and apply migrations
+npx prisma migrate dev
+
+# Reset database (caution: data loss)
+npx prisma migrate reset
+
+# View database in browser
+npx prisma studio
+
+# Seed database with sample data
+npm run db:seed
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── auth/           # Authentication module
+├── accounts/       # Account management
+├── transactions/   # Transaction handling
+├── categories/     # Category management
+├── common/         # Shared utilities
+├── config/         # Configuration files
+├── entities/       # Domain entities
+├── prisma/         # Database service
+├── repositories/   # Data access layer
+└── main.ts         # Application entry point
+
+prisma/
+├── schema.prisma   # Database schema
+├── migrations/     # Database migrations
+└── seed.ts         # Database seeding
+
+test/
+├── app.e2e-spec.ts # End-to-end tests
+└── jest-e2e.json   # E2E test configuration
+```
+
+## 🚀 Deployment
+
+### Production Checklist
+1. Set secure environment variables
+2. Configure production database
+3. Run database migrations
+4. Build the application
+5. Start with PM2 or similar process manager
+
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm run start:prod
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
+
+## 📄 License
+
+This project is [UNLICENSED](LICENSE) - Private use only.
+
+## 🔒 Security
+
+- JWT tokens for authentication
+- Password hashing with bcrypt
+- Input validation and sanitization
+- SQL injection protection via Prisma
+- CORS configuration
+- Environment variable protection
+
+## 📞 Support
+
+For support and questions, please create an issue in the repository.
