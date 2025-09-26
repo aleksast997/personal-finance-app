@@ -15,9 +15,9 @@ async function bootstrap() {
     }),
   );
 
-  // CORS for frontend development
+  // CORS for frontend and mobile development
   app.enableCors({
-    origin: ['http://localhost:3001', 'http://localhost:5173'], // React dev servers
+    origin: true, // Allow all origins for development (mobile app testing)
     credentials: true,
   });
 
